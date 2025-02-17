@@ -1,0 +1,28 @@
+hostname Router2
+
+interface GigabitEthernet0/0/0
+ ip address 192.168.0.20 255.255.255.0
+ ip nat outside
+ no shutdown
+exit
+
+interface GigabitEthernet0/0/1
+ ip address 192.168.2.1 255.255.255.0
+ ip nat inside
+ no shutdown
+exit
+
+ip nat pool nat-lan 192.168.0.20 192.168.0.20 netmask 255.255.255.0
+access-list 1 permit 192.168.2.0 0.0.0.255
+ip nat inside source list 1 pool nat-lan 
+
+ip route 0.0.0.0 0.0.0.0 192.168.0.1 
+
+service dhcp
+
+ip dhcp pool ip-pool-lan
+ network 192.168.2.0 255.255.255.0
+ default-router 192.168.2.1
+ dns-server 8.8.8.8
+ domain-name itmirai2.local
+exit
