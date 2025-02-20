@@ -13,5 +13,5 @@
 - Router5
     - 192.168.5.0/24
 
-Router1内⇔Router2内は通信不可
+Router1内⇔Router2内はTopRouter経由で通信可
 
